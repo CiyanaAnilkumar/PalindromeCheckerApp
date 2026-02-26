@@ -1,17 +1,16 @@
-//version 6.0
+//version 7.0
 //author Ciyana
-//useCase 6:
-import java.util.LinkedList;
-import java.util.Queue;
+//useCase 7:
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Scanner;
-import java.util.Stack;
 
-public class UseCase6PalindromeCheckerApp {
+public class UseCase7PalindromeCheckerApp {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("--- Queue + Stack Palindrome Checker ---");
+        System.out.println("--- Deque-Based Optimized Palindrome Checker ---");
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
         String cleanedInput = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
@@ -27,14 +26,15 @@ public class UseCase6PalindromeCheckerApp {
 
 
     public static boolean isPalindrome(String text) {
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new ArrayDeque<>();
         for (char ch : text.toCharArray()) {
-            queue.add(ch);
-            stack.push(ch);
+            deque.addLast(ch);
         }
-        while (!queue.isEmpty()) {
-            if (!queue.remove().equals(stack.pop())) {
+        while (deque.size() > 1) {
+            Character front = deque.removeFirst();
+            Character rear = deque.removeLast();
+
+            if (!front.equals(rear)) {
                 return false;
             }
         }
